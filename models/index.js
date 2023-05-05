@@ -28,5 +28,6 @@ db.users = require("./User.model.js")(mongoose);
 db.otp = require("./OTP.model.js")(mongoose);
 db.posts = require("./Post.model.js")(mongoose);
 db.comments = require("./Comments.model.js")(mongoose);
+db.postActivity = require("./PostActivity.model.js")(mongoose);
 
 module.exports = db;
