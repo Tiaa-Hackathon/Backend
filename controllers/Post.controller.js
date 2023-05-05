@@ -87,7 +87,28 @@ exports.getCurrentUserPosts = async (req, res, next) => {
         },
         null,
         { session }
-      ).sort({ createdAt: -1 });
+      )
+        .sort({ createdAt: -1 })
+        .populate({
+          path: "author",
+          select: "-password",
+        })
+        .populate({
+          path: "comments",
+          populate: [
+            {
+              path: "author",
+              select: "-password",
+            },
+            {
+              path: "replies",
+              populate: {
+                path: "author",
+                select: "-password",
+              },
+            },
+          ],
+        });
       res.send({
         success: true,
         message: "Posts fetched successfully",
@@ -111,7 +132,27 @@ exports.getPostById = async (req, res, next) => {
           new mongoose.Types.ObjectId(req.params.id),
           null,
           { session }
-        );
+        )
+          .populate({
+            path: "author",
+            select: "-password",
+          })
+          .populate({
+            path: "comments",
+            populate: [
+              {
+                path: "author",
+                select: "-password",
+              },
+              {
+                path: "replies",
+                populate: {
+                  path: "author",
+                  select: "-password",
+                },
+              },
+            ],
+          });
       } catch (err) {
         return next(createError(400, "Invalid post ID"));
       }
