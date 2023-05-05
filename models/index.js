@@ -1,10 +1,10 @@
 const dotenv = require("dotenv");
-const { MongoClient } = require("mongodb");
+// const { MongoClient } = require("mongodb");
 const logger = require("../utils/logger");
+const mongoose = require("mongoose");
+mongoose.Promise = global.Promise;
 
 dotenv.config();
-
-const env = process.env.MODE || "development";
 
 // fetch mongodb connection url
 const url = process.env.MONGODB_URI;
@@ -17,10 +17,14 @@ if (!url) {
 }
 
 // create a new MongoClient
-const client = new MongoClient(url);
+// const client = new MongoClient(url);
 
 const db = {};
 
-db.mongodb = client;
+db.mongoose = mongoose;
+db.url = url;
+
+db.users = require("./User.model.js")(mongoose);
+db.otp = require("./OTP.model.js")(mongoose);
 
 module.exports = db;
