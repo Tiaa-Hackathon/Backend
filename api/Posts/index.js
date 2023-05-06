@@ -10,6 +10,9 @@ router.post("/", authMiddleware, postController.createPost);
 // edit a post
 router.put("/:id", authMiddleware, postController.editPost);
 
+// get all posts
+router.get("/all", postController.getAllPosts);
+
 // get all posts of current user
 router.get("/", authMiddleware, postController.getCurrentUserPosts);
 

@@ -202,3 +202,60 @@ exports.deletePost = async (req, res, next) => {
     next(createError(500, err));
   }
 };
+
+exports.getAllPosts = async (req, res, next) => {
+  try {
+    const session = await mongoose.startSession();
+    await session.withTransaction(async () => {
+      const posts = await Post.aggregate([
+        // Left outer join the post activities
+        {
+          $lookup: {
+            from: "posts_activities",
+            localField: "_id",
+            foreignField: "post_id",
+            as: "activities",
+          },
+        },
+        // Unwind the activities array
+        { $unwind: { path: "$activities", preserveNullAndEmptyArrays: true } },
+        // Project a flag indicating whether the activity is an upvote
+        {
+          $project: {
+            _id: 1,
+            title: 1,
+            body: 1,
+            author: 1,
+            comments: 1,
+            is_upvote: { $eq: ["$activities.activity_type", "upvote"] },
+          },
+        },
+        // Group by the post and count the upvotes
+        {
+          $group: {
+            _id: "$_id",
+            title: { $first: "$title" },
+            body: { $first: "$body" },
+            author: { $first: "$author" },
+            comments: { $first: "$comments" },
+            upvotes: {
+              $sum: { $cond: { if: "$is_upvote", then: 1, else: 0 } },
+            },
+          },
+        },
+        // Sort by the count of upvotes
+        { $sort: { upvotes: -1 } },
+      ]);
+
+      return res.send({
+        success: true,
+        message: "Posts fetched successfully",
+        data: {
+          posts,
+        },
+      });
+    });
+  } catch (err) {
+    next(createError(500, err));
+  }
+};
