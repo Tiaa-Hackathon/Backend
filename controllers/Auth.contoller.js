@@ -8,16 +8,29 @@ const mongoose = db.mongoose;
 
 exports.register = async (req, res, next) => {
   try {
-    const { name, email, password, confirmPassword } = req.body;
+    const { name, email, password, confirmPassword, dob, gender, interests } =
+      req.body;
     const user = await User.findOne({ email });
 
     if (!user) {
       if (password === confirmPassword) {
-        const newUser = new User({
-          name,
-          email,
-          password,
-        });
+        const userData = {};
+        userData.name = name;
+        userData.email = email;
+        userData.password = password;
+
+        if (dob) userData.dob = new Date(dob);
+        if (gender) userData.gender = gender;
+        if (interests) {
+          const temp = [];
+          for (let interest of interests) {
+            interest = interest.toLowerCase();
+            temp.push(interest);
+          }
+          userData.interests = temp;
+        }
+
+        const newUser = new User(userData);
 
         newUser.setPassword(password);
 

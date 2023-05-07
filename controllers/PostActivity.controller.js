@@ -82,7 +82,15 @@ exports.createActivity = async (req, res, next) => {
                     author: req.user._id,
                   });
 
+                  const commentActivity = new PostActivity({
+                    post_id: post_id,
+                    user_id: req.user._id,
+                    activity_type: "comment",
+                  });
+
                   await newComment.save({ session });
+
+                  await commentActivity.save({ session });
 
                   post.comments.push(newComment._id);
                   await post.save({ session });

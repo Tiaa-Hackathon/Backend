@@ -27,6 +27,27 @@ module.exports = (mongoose) => {
         required: [true, "can't be blank"],
         minlength: 6,
       },
+      dob: {
+        type: Date,
+        required: true,
+      },
+      gender: {
+        type: String,
+        enum: [
+          "Female",
+          "Male",
+          "Trans",
+          "Agender",
+          "Gender-neutral",
+          "Non-binary",
+          "Other",
+        ],
+        required: true,
+      },
+      interests: {
+        type: Array,
+        required: true,
+      },
     },
     { timestamps: true, versionKey: false }
   );
