@@ -207,6 +207,66 @@ exports.getAllPosts = async (req, res, next) => {
   try {
     const session = await mongoose.startSession();
     await session.withTransaction(async () => {
+      // const posts = await Post.aggregate([
+      //   // Left outer join the post activities
+      //   {
+      //     $lookup: {
+      //       from: "posts_activities",
+      //       localField: "_id",
+      //       foreignField: "post_id",
+      //       as: "activities",
+      //     },
+      //   },
+      //   // Unwind the activities array
+      //   { $unwind: { path: "$activities", preserveNullAndEmptyArrays: true } },
+      //   // Project a flag indicating whether the activity is an upvote
+      //   {
+      //     $project: {
+      //       _id: 1,
+      //       title: 1,
+      //       body: 1,
+      //       author: 1,
+      //       comments: 1,
+      //       is_upvote: { $eq: ["$activities.activity_type", "upvote"] },
+      //     },
+      //   },
+      //   // Group by the post and count the upvotes
+      //   {
+      //     $group: {
+      //       _id: "$_id",
+      //       title: { $first: "$title" },
+      //       body: { $first: "$body" },
+      //       author: { $first: "$author" },
+      //       comments: { $first: "$comments" },
+      //       upvotes: {
+      //         $sum: { $cond: { if: "$is_upvote", then: 1, else: 0 } },
+      //       },
+      //     },
+      //   },
+      //   // Sort by the count of upvotes
+      //   { $sort: { upvotes: -1 } },
+      // ])
+      //   .populate({
+      //     path: "author",
+      //     select: "-password",
+      //   })
+      //   .populate({
+      //     path: "comments",
+      //     populate: [
+      //       {
+      //         path: "author",
+      //         select: "-password",
+      //       },
+      //       {
+      //         path: "replies",
+      //         populate: {
+      //           path: "author",
+      //           select: "-password",
+      //         },
+      //       },
+      //     ],
+      //   });
+
       const posts = await Post.aggregate([
         // Left outer join the post activities
         {
@@ -228,6 +288,8 @@ exports.getAllPosts = async (req, res, next) => {
             author: 1,
             comments: 1,
             is_upvote: { $eq: ["$activities.activity_type", "upvote"] },
+            is_downvote: { $eq: ["$activities.activity_type", "downvote"] },
+            createdAt: 1,
           },
         },
         // Group by the post and count the upvotes
@@ -241,8 +303,25 @@ exports.getAllPosts = async (req, res, next) => {
             upvotes: {
               $sum: { $cond: { if: "$is_upvote", then: 1, else: 0 } },
             },
+            downvotes: {
+              $sum: { $cond: { if: "$is_downvote", then: 1, else: 0 } },
+            },
+            createdAt: { $first: "$createdAt" },
+            is_upvote: { $first: "$is_upvote" },
+            is_downvote: { $first: "$is_downvote" },
           },
         },
+        // Join with the users collection to fetch the author's details
+        {
+          $lookup: {
+            from: "users",
+            localField: "author",
+            foreignField: "_id",
+            as: "author",
+          },
+        },
+        // Unwind the author array
+        { $unwind: "$author" },
         // Sort by the count of upvotes
         { $sort: { upvotes: -1 } },
       ]);
