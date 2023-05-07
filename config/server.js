@@ -1,6 +1,9 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const db = require("../models/index.js");
+const User = db.users;
+const SocketTable = db.socketTable;
 
 dotenv.config();
 
@@ -26,10 +29,29 @@ io.on("connect", (socket) => {
     username = null; // Reset the username
   });
 
-  socket.on("join", (room, cb) => {
-    username = room; // Set the username to the room name
-    socket.join(room);
-    cb({ status: true, message: "Joined" });
+  socket.on("mapUserEmailToSocketId", async ({ email, id }) => {
+    // tbd error handling
+    try {
+      await SocketTable.replaceOne(
+        { user_email: email },
+        { user_email: email, socket_id: id },
+        { upsert: true }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  socket.on("dm", async ({ content, to, from }) => {
+    try {
+      const user = await SocketTable.findOne({ user_email: to });
+      socket.to(user?.socket_id).emit("receiveDM", {
+        content,
+        from,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   });
 
   socket.on("leave", (room) => {

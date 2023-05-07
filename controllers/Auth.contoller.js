@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const createError = require("http-errors");
 const isValidEmail = require("../validators/email.js");
 const { sendResetPassword } = require("../config/nodemailer.js");
@@ -5,6 +6,18 @@ const db = require("../models/index.js");
 const User = db.users;
 const OTP = db.otp;
 const mongoose = db.mongoose;
+
+exports.decodeToken = async (req, res, next) => {
+  try {
+    const token =
+      req.headers.authorization && req.headers.authorization.split(" ")[1];
+
+    const tokenData = jwt.verify(token, process.env.JWT_SECRET);
+    res.status(200).json({ email: tokenData.email });
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 exports.register = async (req, res, next) => {
   try {
