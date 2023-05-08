@@ -15,7 +15,7 @@ module.exports = (mongoose) => {
       },
       activity_type: {
         type: String,
-        enum: ["upvote", "downvote", "comment"],
+        enum: ["upvote", "downvote", "comment", "flag"],
         required: true,
       },
     },

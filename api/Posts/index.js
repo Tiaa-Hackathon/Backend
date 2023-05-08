@@ -52,4 +52,14 @@ router.post(
   postController.hidePostForAll
 );
 
+// get all flagged posts
+router.get(
+  "/flag/all",
+  authMiddleware(["Moderator"]),
+  postController.getAllFlaggedPost
+);
+
+// flag post
+router.post("/flag/:id", authMiddleware(["User"]), postController.flagPost);
+
 module.exports = router;

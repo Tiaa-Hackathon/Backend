@@ -2,6 +2,7 @@ const createError = require("http-errors");
 const countCharacters = require("../validators/CharacterCount.js");
 const db = require("../models/index.js");
 const Post = db.posts;
+const PostActivity = db.postActivity;
 const mongoose = db.mongoose;
 
 exports.createPost = async (req, res, next) => {
@@ -369,6 +370,87 @@ exports.hidePostForAll = async (req, res, next) => {
     } else {
       next(createError(400, "Post id not provided"));
     }
+  } catch (err) {
+    next(createError(500, err));
+  }
+};
+
+exports.flagPost = async (req, res, next) => {
+  try {
+    const session = await mongoose.startSession();
+    await session.withTransaction(async () => {
+      const { id } = req.params;
+
+      if (id) {
+        let post;
+        try {
+          post = await Post.findById(new mongoose.Types.ObjectId(id), null, {
+            session,
+          });
+        } catch (err) {
+          return next(createError(400, "Invalid Post id"));
+        }
+        if (post._id !== req.user._id) {
+          const activity = new PostActivity();
+          activity.post_id = post._id;
+          activity.user_id = req.user._id;
+          activity.activity_type = "flag";
+
+          await activity.save({ session });
+          res.send({
+            status: true,
+            message: "Post flagged successfully",
+          });
+        } else {
+          next(createError(400, "User cannot flag self post"));
+        }
+      } else {
+        next(createError(400, "Post id is required"));
+      }
+    });
+  } catch (err) {
+    next(createError(500, err));
+  }
+};
+
+exports.getAllFlaggedPost = async (req, res, next) => {
+  try {
+    const session = await mongoose.startSession();
+    await session.withTransaction(async () => {
+      const postActivity = await PostActivity.find({ activity_type: "flag" })
+        .populate({
+          path: "post_id",
+          populate: {
+            path: "author",
+            select: "-password",
+          },
+        })
+        .populate({
+          path: "post_id",
+          populate: {
+            path: "comments",
+            populate: [
+              {
+                path: "author",
+                select: "-password",
+              },
+              {
+                path: "replies",
+                populate: {
+                  path: "author",
+                  select: "-password",
+                },
+              },
+            ],
+          },
+        });
+
+      res.send({
+        status: true,
+        message: "Flagged posts fetched successfully",
+        data: postActivity,
+      });
+    });
   } catch (err) {
     next(createError(500, err));
   }

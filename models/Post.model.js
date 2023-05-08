@@ -27,7 +27,7 @@ module.exports = (mongoose) => {
         default: true,
       },
     },
-    { timestamps: true, versionKey: false }
+    { timestamps: true, versionKey: false, strictPopulate: false }
   );
 
   const Post = mongoose.model("posts", PostSchema);
