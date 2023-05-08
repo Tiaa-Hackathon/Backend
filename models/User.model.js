@@ -48,6 +48,19 @@ module.exports = (mongoose) => {
         type: Array,
         required: true,
       },
+      score: {
+        type: Number,
+        default: 0,
+      },
+      role: {
+        type: String,
+        enum: ["User", "Moderator"],
+        default: "User",
+      },
+      isBlocked: {
+        type: Boolean,
+        default: false,
+      },
     },
     { timestamps: true, versionKey: false }
   );
@@ -84,6 +97,7 @@ module.exports = (mongoose) => {
       id: this._id,
       email: this.email,
       name: this.name,
+      isModerator: this.role === "Moderator",
     };
   };
 

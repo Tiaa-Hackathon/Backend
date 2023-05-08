@@ -74,19 +74,23 @@ exports.login = async (req, res, next) => {
     const user = await User.findOne({ email });
 
     if (user) {
-      if (user.validPassword(password)) {
-        const token = user.generateJWT();
+      if (!user.isBlocked) {
+        if (user.validPassword(password)) {
+          const token = user.generateJWT();
 
-        res.status(200).send({
-          success: true,
-          message: "User logged in successfully",
-          data: {
-            user: user.toAuthJSON(),
-            token,
-          },
-        });
+          res.status(200).send({
+            success: true,
+            message: "User logged in successfully",
+            data: {
+              user: user.toAuthJSON(),
+              token,
+            },
+          });
+        } else {
+          next(createError(401, "Invalid credentials"));
+        }
       } else {
-        next(createError(401, "Invalid credentials"));
+        next(createError(401, "You have been blocked by moderator"));
       }
     } else {
       next(createError(401, "User not found"));
@@ -186,6 +190,50 @@ exports.resetPassword = async (req, res, next) => {
         }
       } else {
         next(createError(400, "Invalid email"));
+      }
+    });
+  } catch (err) {
+    next(createError(500, err));
+  }
+};
+
+exports.blockUserByModerator = async (req, res, next) => {
+  try {
+    const session = await mongoose.startSession();
+    await session.withTransaction(async () => {
+      const { id } = req.body;
+
+      if (id) {
+        let user;
+        try {
+          user = await User.findById(
+            new mongoose.Types.ObjectId(new mongoose.Types.ObjectId(id)),
+            null,
+            { session }
+          );
+        } catch (err) {
+          return next(createError(400, "Invalid user id"));
+        }
+        if (user) {
+          if (!user.isBlocked) {
+            user.isBlocked = true;
+            await user.save({ session });
+
+            res.send({
+              status: true,
+              message: "User blocked successfully",
+            });
+          } else {
+            res.status(200).send({
+              status: true,
+              message: "User already blocked",
+            });
+          }
+        } else {
+          next(createError(404, "User not found"));
+        }
+      } else {
+        next(createError(400, "Post id is required"));
       }
     });
   } catch (err) {

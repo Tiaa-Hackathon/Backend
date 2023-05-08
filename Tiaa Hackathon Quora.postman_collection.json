@@ -1,0 +1,1104 @@
+{
+	"info": {
+		"_postman_id": "ed6793f4-6b74-49ca-83fe-f10c6ed61907",
+		"name": "Tiaa Hackathon Quora",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24022619"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Achyut Shukla\",\n    \"email\": \"achyut.shukla.btech2020@sitpune.edu.in\",\n    \"password\": \"admin@123\",\n    \"confirmPassword\": \"admin@123\",\n    \"dob\": \"2002-05-07\",\n    \"gender\": \"Male\",\n    \"interests\": [\n        \"Science\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/auth/register",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Achyut Shukla\",\n    \"email\": \"achyut.shukla.btech2020@sitpune.edu.in\",\n    \"password\": \"admin@123\",\n    \"confirmPassword\": \"admin@123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL}}/auth/register",
+									"host": [
+										"{{LOCAL}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "54"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"36-MmDe8BssOv3Mbe83+wQb6lPPsNA\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 04 May 2023 18:54:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"User created successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"achyut.shukla.btech2020@sitpune.edu.in\",\n    \"password\": \"admin@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/auth/login",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"achyut.shukla.btech2020@sitpune.edu.in\",\n    \"password\": \"admin@123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL}}/auth/login",
+									"host": [
+										"{{LOCAL}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "425"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1a9-cSO+QAUES+lZTSg0CxlTesEkYrI\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 04 May 2023 19:03:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"User logged in successfully\",\n    \"data\": {\n        \"user\": {\n            \"id\": \"6453ffe7e04ae526ac0ae0b8\",\n            \"email\": \"achyut.shukla.btech2020@sitpune.edu.in\",\n            \"name\": \"Achyut Shukla\"\n        },\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFjaHl1dC5zaHVrbGEuYnRlY2gyMDIwQHNpdHB1bmUuZWR1LmluIiwiaWQiOiI2NDUzZmZlN2UwNGFlNTI2YWMwYWUwYjgiLCJleHAiOjE2ODg0MTA5ODIsImlhdCI6MTY4MzIyNjk4Mn0.IAz06ACNKgr3mS28sGF_2ef2mwTM-0I30gyXmCEIPvk\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Send reset password mail",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"achyut.shukla.btech2020@sitpune.edu.in\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/auth/send-reset-password-email",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"auth",
+								"send-reset-password-email"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Send reset password mail",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"achyut.shukla.btech2020@sitpune.edu.in\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL}}/auth/send-reset-password-email",
+									"host": [
+										"{{LOCAL}}"
+									],
+									"path": [
+										"auth",
+										"send-reset-password-email"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "66"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"42-onedKayMANXS3WoneuOs74GGSS4\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 05 May 2023 03:11:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Reset password mail sent successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Reset password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"otp\": 764718,\n    \"email\": \"achyut.shukla.btech2020@sitpune.edu.in\",\n    \"password\": \"test@123ASD\",\n    \"confirmPassword\": \"test@123ASD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/auth/reset-password",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Reset password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"otp\": 764718,\n    \"email\": \"achyut.shukla.btech2020@sitpune.edu.in\",\n    \"password\": \"test@123ASD\",\n    \"confirmPassword\": \"test@123ASD\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL}}/auth/reset-password",
+									"host": [
+										"{{LOCAL}}"
+									],
+									"path": [
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "56"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"38-2Gib5CWmd6iCx7e709n4PLv/myk\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 05 May 2023 04:17:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Password reset successfully\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Comments reply",
+					"item": [
+						{
+							"name": "Reply to comment by owner",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNocmlqaS5qaGEuYnRlY2gyMDIwQHNpdHB1bmUuZWR1LmluIiwiaWQiOiI2NDU1MjFmYWQyNTNhZGUyYTMzOThlMTUiLCJleHAiOjE2ODg0ODQ4NzcsImlhdCI6MTY4MzMwMDg3N30.Vt6xUurRenjN51xYAPVJrKkJEARN5TfSMTZsVG_5zjY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL}}/post/comment/reply/6455e08df055b07793f565d8",
+									"host": [
+										"{{LOCAL}}"
+									],
+									"path": [
+										"post",
+										"comment",
+										"reply",
+										"6455e08df055b07793f565d8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"body\": \"# Hello, world!\\nThis is a paragraph with **bold** and _italic_ text.\\nHere's a list:\\n- Item 1\\n- Item 2\\n- Item 3\\nAnd here's a link: [Google](https://www.google.com)\\nThat's it!\",\n    \"title\": \"post 1 creation\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/post",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Post",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"body\": \"# Hello, world!\\nThis is a paragraph with **bold** and _italic_ text.\\nHere's a list:\\n- Item 1\\n- Item 2\\n- Item 3\\nAnd here's a link: [Google](https://www.google.com)\\nThat's it!\",\n    \"title\": \"post 1 creation\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL}}/post",
+									"host": [
+										"{{LOCAL}}"
+									],
+									"path": [
+										"post"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "54"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"36-gTjKXOR9phBcnoYxS6iFU/A8u9g\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 05 May 2023 13:55:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Post created successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Edit post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"new title\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/post/64550adbe48875c801b335c6",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"post",
+								"64550adbe48875c801b335c6"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Edit post",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"new title\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL}}/post/64550adbe48875c801b335c6",
+									"host": [
+										"{{LOCAL}}"
+									],
+									"path": [
+										"post",
+										"64550adbe48875c801b335c6"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "54"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"36-FKCcm2TxcmKD5A6p9JZUEipozY4\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 05 May 2023 14:10:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Post updated successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get all posts of current user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/post",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all posts of current user",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL}}/post",
+									"host": [
+										"{{LOCAL}}"
+									],
+									"path": [
+										"post"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "296"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"128-XsUep9HnmtJ+O6XH9ISDngwE5K4\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 05 May 2023 14:17:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Posts fetched successfully\",\n    \"data\": {\n        \"posts\": [\n            {\n                \"_id\": \"64550adbe48875c801b335c6\",\n                \"title\": \"new title\",\n                \"body\": \"### hello this is my new body\",\n                \"comments\": [],\n                \"author\": \"6453ffe7e04ae526ac0ae0b8\",\n                \"createdAt\": \"2023-05-05T13:55:39.249Z\",\n                \"updatedAt\": \"2023-05-05T14:10:02.191Z\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get post by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/post/64550adbe48875c801b335c6",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"post",
+								"64550adbe48875c801b335c6"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get post by id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL}}/post/64550adbe48875c801b335c6",
+									"host": [
+										"{{LOCAL}}"
+									],
+									"path": [
+										"post",
+										"64550adbe48875c801b335c6"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "293"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"125-71nY3072PMxjPlIuhsgrljvFZmY\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 05 May 2023 14:18:31 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Posts fetched successfully\",\n    \"data\": {\n        \"post\": {\n            \"_id\": \"64550adbe48875c801b335c6\",\n            \"title\": \"new title\",\n            \"body\": \"### hello this is my new body\",\n            \"comments\": [],\n            \"author\": \"6453ffe7e04ae526ac0ae0b8\",\n            \"createdAt\": \"2023-05-05T13:55:39.249Z\",\n            \"updatedAt\": \"2023-05-05T14:10:02.191Z\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete post by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/post/64550adbe48875c801b335c6",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"post",
+								"64550adbe48875c801b335c6"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete post by id",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL}}/post/64550adbe48875c801b335c6",
+									"host": [
+										"{{LOCAL}}"
+									],
+									"path": [
+										"post",
+										"64550adbe48875c801b335c6"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "54"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"36-h1dHx+ryosXJ0pmTdUm5ZUHD+PA\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 05 May 2023 14:24:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Post deleted successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get all posts sorted by upvotes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/post/all",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"post",
+								"all"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all posts sorted by upvotes",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL}}/post/all",
+									"host": [
+										"{{LOCAL}}"
+									],
+									"path": [
+										"post",
+										"all"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "596"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"254-2b62aD5AD0XIAEfAhrNfYF6w/T8\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 06 May 2023 04:44:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Posts fetched successfully\",\n    \"data\": {\n        \"posts\": [\n            {\n                \"_id\": \"6455221dd253ade2a3398e19\",\n                \"title\": \"post 1 creation\",\n                \"body\": \"# Hello, world!\\nThis is a paragraph with **bold** and _italic_ text.\\nHere's a list:\\n- Item 1\\n- Item 2\\n- Item 3\\nAnd here's a link: [Google](https://www.google.com)\\nThat's it!\",\n                \"author\": \"645521fad253ade2a3398e15\",\n                \"comments\": [\n                    \"645523d41b9a360e2d03f7c9\",\n                    \"6455240e1b9a360e2d03f7ce\"\n                ],\n                \"upvotes\": 1\n            },\n            {\n                \"_id\": \"64550adbe48875c801b335c6\",\n                \"title\": \"new title\",\n                \"body\": \"### hello this is my new body\",\n                \"author\": \"6453ffe7e04ae526ac0ae0b8\",\n                \"comments\": [],\n                \"upvotes\": 0\n            }\n        ]\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Post Activities",
+			"item": [
+				{
+					"name": "Create activity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"post_id\": \"6455221dd253ade2a3398e19\",\n    \"activity_type\": \"comment\",\n    \"comment\": \"send bobs\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/post/activity",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"post",
+								"activity"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create activity",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"post_id\": \"6455221dd253ade2a3398e19\",\n    \"activity_type\": \"downvote\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL}}/post/activity",
+									"host": [
+										"{{LOCAL}}"
+									],
+									"path": [
+										"post",
+										"activity"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "50"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"32-BFDDSHSyp8T/reCSX7Kp79TJdZg\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 05 May 2023 15:41:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Successfully downvoted\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "LOCAL",
+			"value": "http://localhost:8000/api",
+			"type": "string"
+		},
+		{
+			"key": "SERVER",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "JWT",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFjaHl1dC5zaHVrbGEuYnRlY2gyMDIwQHNpdHB1bmUuZWR1LmluIiwiaWQiOiI2NDUzZmZlN2UwNGFlNTI2YWMwYWUwYjgiLCJleHAiOjE2ODg0NzgxMzcsImlhdCI6MTY4MzI5NDEzN30.Y-gmlOZHjrE6aKmv6fKFn7TSbpYy_E-mjV6tcVrsT2E",
+			"type": "string"
+		}
+	]
+}

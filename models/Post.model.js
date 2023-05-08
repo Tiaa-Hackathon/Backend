@@ -22,6 +22,10 @@ module.exports = (mongoose) => {
           ref: "comments",
         },
       ],
+      isVisible: {
+        type: Boolean,
+        default: true,
+      },
     },
     { timestamps: true, versionKey: false }
   );

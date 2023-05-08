@@ -128,11 +128,10 @@ exports.getPostById = async (req, res, next) => {
     await session.withTransaction(async () => {
       let post;
       try {
-        post = await Post.findById(
-          new mongoose.Types.ObjectId(req.params.id),
-          null,
-          { session }
-        )
+        post = await Post.findOne({
+          _id: new mongoose.Types.ObjectId(req.params.id),
+          isVisible: true,
+        })
           .populate({
             path: "author",
             select: "-password",
@@ -156,13 +155,17 @@ exports.getPostById = async (req, res, next) => {
       } catch (err) {
         return next(createError(400, "Invalid post ID"));
       }
-      res.send({
-        success: true,
-        message: "Posts fetched successfully",
-        data: {
-          post,
-        },
-      });
+      if (post) {
+        res.send({
+          success: true,
+          message: "Posts fetched successfully",
+          data: {
+            post,
+          },
+        });
+      } else {
+        next(createError(404, "Post not found"));
+      }
     });
   } catch (err) {
     next(createError(500, err));
@@ -334,6 +337,38 @@ exports.getAllPosts = async (req, res, next) => {
         },
       });
     });
+  } catch (err) {
+    next(createError(500, err));
+  }
+};
+
+exports.hidePostForAll = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    if (id) {
+      const session = await mongoose.startSession();
+      await session.withTransaction(async () => {
+        const post = await Post.findById(
+          new mongoose.Types.ObjectId(req.params.id),
+          null,
+          { session }
+        );
+
+        if (post) {
+          post.isVisible = false;
+          await post.save({ session });
+
+          res.send({
+            status: true,
+            message: "Post removed for all",
+          });
+        } else {
+          next(createError(404, "Post not found"));
+        }
+      });
+    } else {
+      next(createError(400, "Post id not provided"));
+    }
   } catch (err) {
     next(createError(500, err));
   }

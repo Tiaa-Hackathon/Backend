@@ -1,6 +1,7 @@
 const createError = require("http-errors");
 const countCharacters = require("../validators/CharacterCount.js");
 const db = require("../models/index.js");
+const Users = db.users;
 const Post = db.posts;
 const PostActivity = db.postActivity;
 const Comment = db.comments;
@@ -30,6 +31,11 @@ exports.createActivity = async (req, res, next) => {
                 });
                 if (activity) {
                   await PostActivity.deleteOne({ _id: activity._id });
+
+                  const user = req.user;
+                  user.score -= 1;
+                  await user.save({ session });
+
                   return res.send({
                     status: true,
                     message: "Successfully removed upvote",
@@ -41,6 +47,11 @@ exports.createActivity = async (req, res, next) => {
                     activity_type: "upvote",
                   });
                   await newActivity.save({ session });
+
+                  const user = req.user;
+                  user.score += 1;
+                  await user.save({ session });
+
                   return res.send({
                     status: true,
                     message: "Successfully upvoted",
